@@ -6,7 +6,6 @@
             <div class="card">
             @include('users.card',['user'=>$user])
             </div>
-            @include('user_follow.follow_button',['user'=>$user])
         </aside>
         <div class="col-sm-8">
             @include('users.navtabs',['user'=>$user])
