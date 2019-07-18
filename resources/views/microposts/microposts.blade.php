@@ -9,12 +9,25 @@
                                 <div>
                                         <p class="mb-0">{!! nl2br(e($micropost->content)) !!}</p>
                                 </div>
-                                <div>
-                                        @if(Auth::id() == $micropost->user_id)
-                                                {!! Form::open(['route'=>['microposts.destroy',$micropost->id],'method'=>'delete']) !!}
-                                                        {!! Form::submit('Delete',['class'=>'btn btn-danger btn-sm']) !!}
-                                                {!! Form::close() !!}
-                                        @endif
+                                <div class="row">
+                                        <div class="col-3">
+                                                @if (Auth::user()->is_favorite($micropost->id))
+                                                        {!! Form::open(['route' => ['favorites.unfavorite', $micropost->id], 'method' => 'delete']) !!}
+                                                                {!! Form::submit('Unfavorite', ['class' => "btn btn-info btn-sm"]) !!}
+                                                        {!! Form::close() !!}
+                                                @else
+                                                        {!! Form::open(['route'=>['favorites.favorite',$micropost->id]]) !!}
+                                                                {!! Form::submit('Favorite',['class'=>'btn btn-success btn-sm']) !!}
+                                                        {!! Form::close() !!}
+                                                @endif
+                                        </div>
+                                        <div class="col-3">
+                                                @if(Auth::id() == $micropost->user_id)
+                                                        {!! Form::open(['route'=>['microposts.destroy',$micropost->id],'method'=>'delete']) !!}
+                                                                {!! Form::submit('Delete',['class'=>'btn btn-danger btn-sm']) !!}
+                                                        {!! Form::close() !!}
+                                                @endif
+                                        </div>
                                 </div>
                         </div>
                 </li>
